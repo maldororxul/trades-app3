@@ -11,12 +11,12 @@ CHANNEL_ID = 711192122753024004
 
 
 def save_token():
-    with open('t', 'wb') as f:
+    with open('t.pkl', 'wb') as f:
         pickle.dump({'token': TOKEN}, f, 5, buffer_callback=True)
 
 
 def load_token():
-    with open('t', 'rb') as f:
+    with open('t.pkl', 'rb') as f:
         res = pickle.load(f)
     return res['token']
 
