@@ -121,9 +121,10 @@ class MyClient(discord.Client):
             await asyncio.sleep(60)
 
 
-# save_token()
-client = MyClient()
-try:
-    client.run(load_token())
-except:
-    pass
+if __name__ == "__main__":
+    # save_token()
+    client = MyClient()
+    try:
+        client.run(load_token())
+    except:
+        pass
