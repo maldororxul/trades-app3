@@ -26,7 +26,7 @@ class MyClient(discord.Client):
     working = True
 
     async def on_ready(self):
-        print('Logged on as', self.user)
+        # print('Logged on as', self.user)
         await self.send_msg()
 
     async def on_message(self, message):
@@ -75,8 +75,6 @@ class MyClient(discord.Client):
                 'Примем заявок': params[5].text,
                 'ЭП': url,
             }
-            # for n, p in enumerate(params):
-            #     print(n, p)
             res.append(line)
             await asyncio.sleep(1)
 
@@ -89,6 +87,7 @@ class MyClient(discord.Client):
                 if channel:
 
                     # получаем последние 200 сообщений (список урлов процедур)
+                    print('reading msgs...')
                     urls = list()
                     async for msg in channel.history(limit=200):
                         if msg.author == self.user:
@@ -100,13 +99,17 @@ class MyClient(discord.Client):
                                     if f['name'] == 'ЭП':
                                         urls.append(f['value'])
 
+                    # print('parsing...')
+
                     res = await self.parse()
+
+                    # print(res)
+
                     if len(res) > 0:
                         for r in res:
                             if r['ЭП'] in urls:
                                 continue
                             embed = discord.Embed(title=r['Title'], color=0x00ff00)
-                            # embed.from_dict(r)
                             for k in r.keys():
                                 if k == 'Title':
                                     continue
