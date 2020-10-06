@@ -1,16 +1,24 @@
 import discord
-import time
 import asyncio
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
-# from webdriver_manager.chrome import ChromeDriverManager    # pip install webdriver-manager
 from bs4 import BeautifulSoup as bs
 import requests
 import re
+import pickle
 
 
-TOKEN = 'NzYyOTc3NDM2OTQxMTU2MzUz.X3xAHA.nRyakxJWm4qJ_aST65bn5TvANB8'
+TOKEN = '...'
 CHANNEL_ID = 711192122753024004
+
+
+def save_token():
+    with open('t', 'wb') as f:
+        pickle.dump({'token': TOKEN}, f, 5, buffer_callback=True)
+
+
+def load_token():
+    with open('t', 'rb') as f:
+        res = pickle.load(f)
+    return res['token']
 
 
 class MyClient(discord.Client):
@@ -110,5 +118,9 @@ class MyClient(discord.Client):
             await asyncio.sleep(60)
 
 
+# save_token()
 client = MyClient()
-client.run(TOKEN)
+try:
+    client.run(load_token())
+except:
+    pass
